@@ -10,11 +10,60 @@ import mysql.connector
 import numpy as np 
 import pytesseract as pyt
 
+class Database:
+    def __init__(self):
+        self.mydb = mysql.connector.connect(
+            host = "localhost",
+            user = "root",
+            passwd = "password123",
+            database = "approved_vehicles",
+            )
+
+        self.my_cursor = self.mydb.cursor()
+
+        self.records = [('Kamala Rajan', 'UP24AX8793'),
+            ('Karanjit Aulakh', 'PB44ES1234'),
+            ('Suyash Matanhelia', 'UP32HD6262'),
+            ('Aruna Ganguly', 'UP24HF8234'),
+            ('Saumil Sood', 'HR20AB8008'),
+            ('Arishmit Ghosh', 'WB06G8224'),
+            ('Tanmay Singh', 'TN14AS3127'),
+            ('Siddhant Nigam', 'KA03MX5058'),
+            ('Farhan Ahmed', 'UP24AB2244'),
+            ('Anthony Smith', 'UP24CZ1678')
+        ]
+        self.con=connect(user="root",password="password123",host="localhost",database="approved_vehicles")
+        self.df=sql.read_sql('select * from approved_vehicles', self.con)
+
+    def exec(self, num):
+        self.my_cursor.execute("SELECT * FROM approved_vehicles")
+        result = self.my_cursor.fetchall()
+        for tup in result:
+            if tup[1] == num:
+                return("The vehicle is already a registered approved vehicle and belongs to {}".format(tup[0]))
+        return ('No vehicle found')
+
+    def exportDbApproved(self):
+        #df=sql.read_sql('select * from approved_vehicles', self.con)
+        self.df.to_excel('authorised.xlsx')
+
+    '''mydb1 = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        passwd = "password123",
+        )
+    my_cursor1 = mydb1.cursor()'''
+
+    #my_cursor1.execute("CREATE DATABASE unapproved_vehicles")
+    #my_cursor1.execute("CREATE TABLE unapproved_vehicles (License_plate_num VARCHAR(255))")
+
+    #table_info = "INSERT INTO unapproved_vehicles (License_plate_num) VALUES (%s)"
+
 window = tk.Tk()
-root.configure(background='black')
+window.configure(background='black')
 menubar = tk.Menu(window)
 file_menu = tk.Menu(menubar, tearoff = 0)
-file_menu.add_command(label = "Read Database")
+file_menu.add_command(label = "Read Database", command = db.exportDbApproved)
 file_menu.add_command(label = "Help")
 file_menu.add_command(label = "Start")
 file_menu.add_command(label="Exit", command= window.quit)  
@@ -103,49 +152,6 @@ def start_video():
 play_btn = tk.Button(window, bg = "red", fg = "white", width = 20, height = 2, text = "Play", command = start_video)
 play_btn.pack(side = tk.BOTTOM, padx = 2, pady = 10)
 
-class Database:
-    def __init__(self):
-        self.mydb = mysql.connector.connect(
-            host = "localhost",
-            user = "root",
-            passwd = "password123",
-            database = "approved_vehicles",
-            )
-
-        self.my_cursor = self.mydb.cursor()
-
-        self.records = [('Kamala Rajan', 'UP24AX8793'),
-            ('Karanjit Aulakh', 'PB44ES1234'),
-            ('Suyash Matanhelia', 'UP32HD6262'),
-            ('Aruna Ganguly', 'UP24HF8234'),
-            ('Saumil Sood', 'HR20AB8008'),
-            ('Arishmit Ghosh', 'WB06G8224'),
-            ('Tanmay Singh', 'TN14AS3127'),
-            ('Siddhant Nigam', 'KA03MX5058'),
-            ('Farhan Ahmed', 'UP24AB2244'),
-            ('Anthony Smith', 'UP24CZ1678')
-        ]
-        self.con=connect(user="root",password="password123",host="localhost",database="approved_vehicles")
-        self.df=sql.read_sql('select * from approved_vehicles', self.con)
-
-    def exec(self, num):
-        self.my_cursor.execute("SELECT * FROM approved_vehicles")
-        result = self.my_cursor.fetchall()
-        for tup in result:
-            if tup[1] == num:
-                return("The vehicle is already a registered approved vehicle and belongs to {}".format(tup[0]))
-        return ('No vehicle found')
-    mydb1 = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        passwd = "password123",
-        )
-    my_cursor1 = mydb1.cursor()
-
-    #my_cursor1.execute("CREATE DATABASE unapproved_vehicles")
-    #my_cursor1.execute("CREATE TABLE unapproved_vehicles (License_plate_num VARCHAR(255))")
-
-    #table_info = "INSERT INTO unapproved_vehicles (License_plate_num) VALUES (%s)"
 
 pyt.pytesseract.tesseract_cmd = r'C://Program Files/Tesseract-OCR/tesseract'
 class PlateFinder: 
