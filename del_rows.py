@@ -10,9 +10,10 @@ mydb = mysql.connector.connect(
 
 
 mycursor = mydb.cursor()
-
-sql = "DELETE FROM unapproved_vehicles"
+#alter_table = "Alter TABLE unapproved_vehicles RENAME to All_Vehicles_with_time_stamps"
+sql = "DELETE FROM All_Vehicles_with_time_stamps"
 
 mycursor.execute(sql)
+#mycursor.execute(alter_table)
 
 mydb.commit()
