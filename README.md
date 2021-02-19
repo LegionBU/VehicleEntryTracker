@@ -35,7 +35,7 @@ Please make sure to update tests as appropriate.
 ## Developers-
 Arishmit Ghosh- https://www.linkedin.com/in/arishmit-ghosh-a546391ba/
 
-Saumil Sood- 
+Saumil Sood- https://www.linkedin.com/in/saumil-sood-6b5158200/
 
 Siddhant Nigam- https://www.linkedin.com/in/siddhant-nigam-1b76631ba/
 
