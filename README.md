@@ -1,3 +1,4 @@
+#Vehicle Entry Tracker
 Our software "Vehicle Entry Tracker" will capture and store the license plate of a vehicle, which can be used in identifying vehicles. Our project ensures that the vehicle entering the premises is known and belongs to some person working there, and if not then alerts the main office that an unknown vehicle has entered, and then the officials can check if the person driving that vehicle might be a possible threat.
 
 ## Installation
